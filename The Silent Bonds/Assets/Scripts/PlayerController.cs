@@ -146,12 +146,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !hasJumped  /*jumpCount < 2*/)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            animator.SetBool("isJumping",true);
+            animator.SetTrigger("isJumping");
             ApplyDownForce();
             hasJumped = true;
-            StartCoroutine(ResetJumpingAnimation()); 
             
         }
+       
         
         
         
@@ -160,15 +160,6 @@ public class PlayerController : MonoBehaviour
         /* jumpCount++;
          if (jumpCount >= 2)
              isOnGround = false;*/
-    }
-    private IEnumerator ResetJumpingAnimation()
-    {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        animator.SetBool("isJumping", false);
-        animator.SetBool("isFalling", true);
-        yield return new WaitForSeconds(1);
-        animator.SetBool("isFalling", false);
-        hasJumped = false;
     }
 
     private void  ApplyDownForce()
