@@ -660,9 +660,9 @@ MonoBehaviour:
   maxReducingValue: 0.6
   groundRaycastDistance: 0.5
   playerChild: {fileID: 1217064926}
-  jumpForce: 6
+  jumpForce: 5
   startFallingPosition: 1
-  fallingRate: 10
+  fallingRate: 20
   animator: {fileID: 1217064928}
 --- !u!54 &375184309
 Rigidbody:
