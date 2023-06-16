@@ -1,11 +1,13 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     //  [SerializeField] private float gravityModifier = 1.5f;
     [Header("Player Movement Section")]
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float runSpeed = 5f;
     [SerializeField] private float rotationSpeed = 2f;
     [SerializeField] private float acceleration = 2f;
     [SerializeField] private float velocityReducingFactor = 1f;
@@ -14,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private Transform playerChild;
     //[SerializeField] private GameObject secondCamera;
 
+
     [Header("Jumping Section")]
     [SerializeField] private float jumpForce = 2f;
     [SerializeField] private float startFallingPosition = 1.0f;
@@ -21,6 +24,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 moveDirection = Vector3.zero;
     private int jumpCount = 0;
     private bool isOnGround = true;
+    private bool hasJumped = false;
     private Rigidbody rb;
 
     [Header("Animation Section")]
@@ -30,120 +34,154 @@ public class PlayerController : MonoBehaviour {
 
 
 
-    private void Awake() {
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         //  animator = GetComponent<Animator>();
 
     }
 
 
-    private void Update() {
-        //if (Input.GetKeyDown(KeyCode.Space) && isOnGround  /*jumpCount < 2*/ ) 
-
-        //    Jump();
+    private void Update()
+    {
 
         Inputs();
-        //  CheckGround();
-         Jump();
-        
-        
-
-    }
-
-
-    
-    private void FixedUpdate() {
         Walking();
-        // ApplyGravity();
+        Jump();
+
+
 
     }
 
-    
 
-        private void Inputs() {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
 
-            Vector3 cameraForward = Camera.main.transform.forward;
-            cameraForward.y = 0f;
-            cameraForward.Normalize();
+    private void Inputs()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-            Vector3 cameraRight = Camera.main.transform.right;
-            cameraRight.y = 0f;
-            cameraRight.Normalize();
+        Vector3 cameraForward = Camera.main.transform.forward;
+        cameraForward.y = 0f;
+        cameraForward.Normalize();
 
-            moveDirection = cameraForward * verticalInput + cameraRight * horizontalInput;
+        Vector3 cameraRight = Camera.main.transform.right;
+        cameraRight.y = 0f;
+        cameraRight.Normalize();
 
-            // Rotate the player towards the movement direction
-            if (moveDirection != Vector3.zero)
-                playerChild.forward = Vector3.Slerp(playerChild.forward, moveDirection, Time.deltaTime * rotationSpeed);
+        moveDirection = cameraForward * verticalInput + cameraRight * horizontalInput;
 
+        // Rotate the player towards the movement direction
+        if (moveDirection != Vector3.zero)
+            playerChild.forward = Vector3.Slerp(playerChild.forward, moveDirection, Time.deltaTime * rotationSpeed);
+
+    }
+
+    private void Walking()
+    {
+        Vector3 moveVelocity;
+       
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveVelocity = moveDirection * runSpeed;
+            animator.SetBool("isRunning", true);
         }
-
-        private void Walking() {
-            Vector3 moveVelocity = moveDirection * moveSpeed;
-
-            if (moveVelocity != Vector3.zero) {
-                velocityReducingFactor += acceleration * Time.deltaTime;
-            }
-            else {
-                velocityReducingFactor -= acceleration * Time.deltaTime;
-            }
-
-            velocityReducingFactor = Mathf.Clamp(velocityReducingFactor, maxReducingValue, 1);
-            moveVelocity *= velocityReducingFactor;
-            moveVelocity.y = rb.velocity.y;
-
-            rb.velocity = Vector3.MoveTowards(rb.velocity, moveVelocity, 100 * Time.deltaTime);
-
-
+        else {
             animator.SetBool("isWalking", moveDirection != Vector3.zero);
+            animator.SetBool("isRunning", false);
+            
+            moveVelocity = moveDirection * moveSpeed;
         }
-        private void CheckGround() {
-            /*RaycastHit hit;
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, groundRaycastDistance)) {
-                if (hit.collider.CompareTag("ground")) {
-                    isOnGround = true;
-                    jumpCount = 0;
-                }
-            }
-            else {
-                isOnGround = false;
-            }*/
+        if (moveVelocity != Vector3.zero)
+            velocityReducingFactor += acceleration * Time.deltaTime;
 
-        }
-        private void OnCollisionEnter(Collision collision) {
-            if (collision.gameObject.CompareTag("ground")) {
+        else
+            velocityReducingFactor -= acceleration * Time.deltaTime;
+
+
+        velocityReducingFactor = Mathf.Clamp(velocityReducingFactor, maxReducingValue, 1);
+        moveVelocity *= velocityReducingFactor;
+        moveVelocity.y = rb.velocity.y;
+        rb.velocity = Vector3.MoveTowards(rb.velocity, moveVelocity, 100 * Time.deltaTime);
+        
+    }
+
+    private void CheckGround()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundRaycastDistance))
+        {
+            if (hit.collider.CompareTag("ground"))
+            {
                 isOnGround = true;
                 jumpCount = 0;
             }
-            else
-                isOnGround = false;
+        }
+        else
+        {
+            isOnGround = false;
         }
 
-
-
-        private void Jump() {
-            /*rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            jumpCount++;
-            if (jumpCount >= 2) {
-                isOnGround = false;
-            }*/
-            if (Input.GetKeyDown(KeyCode.Space) && isOnGround  /*jumpCount < 2*/ ) {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                StartCoroutine(ApplyDownForce());
-            }
-        }
-        IEnumerator ApplyDownForce() {
-        yield return new WaitForSeconds(0.2f);
-
-            while (!isOnGround) {
-            // Check if the player is above a certain height or velocity threshold
-                 if (transform.position.y > startFallingPosition) 
-                     rb.AddForce(Vector3.down * fallingRate, ForceMode.Force);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("ground"))
+        {
+            isOnGround = true;
+            jumpCount = 0;
+            hasJumped = false;
             
         }
+        else
 
+            isOnGround = false;
+    }
+
+
+
+    private void Jump()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !hasJumped  /*jumpCount < 2*/)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            animator.SetBool("isJumping",true);
+            ApplyDownForce();
+            hasJumped = true;
+            StartCoroutine(ResetJumpingAnimation()); 
+            
+        }
         
+        
+        
+           
+        
+        /* jumpCount++;
+         if (jumpCount >= 2)
+             isOnGround = false;*/
+    }
+    private IEnumerator ResetJumpingAnimation()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isFalling", true);
+        yield return new WaitForSeconds(1);
+        animator.SetBool("isFalling", false);
+        hasJumped = false;
+    }
+
+    private void  ApplyDownForce()
+    {
+
+        while (!isOnGround)
+        {
+            // Check if the player is above a certain height or velocity threshold
+           if (transform.position.y > startFallingPosition) 
+            rb.AddForce(Vector3.down * fallingRate, ForceMode.Force);
+
+        }
+
+
     }
 }
