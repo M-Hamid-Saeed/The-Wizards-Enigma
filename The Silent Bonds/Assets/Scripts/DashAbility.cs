@@ -2,24 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Abilties: PlayerController
-{
+public class DashAbility : MonoBehaviour  {
     [Header("Dash Ability")]
-    public  float dashSpeed = 5f;
-    public float dashTimer = 1f;
-    private float startDashingTime;
+    [SerializeField] private float dashSpeed = 5f;
+    [SerializeField] private float dashDuration = 1f;
+    private bool isDashing = false;
+    private float dashEndTime;
+    private PlayerController playerController;
+    public Animator animator;
+
+    private void Awake() {
+        playerController = GetComponent<PlayerController>();
+    }
 
     private void Update() {
-        dashAbility();
-    }
-    private void dashAbility() {
-        if (Input.GetMouseButtonDown(1)) { 
-
-            startDashingTime = Time.time;
-            Vector3 direction = moveDirection;
-            while(Time.time < startDashingTime+dashTimer)
-                rb.AddForce(direction * dashSpeed, ForceMode.Impulse);
-
+        if (Input.GetKeyDown(KeyCode.F)&& !isDashing) {
+            playerController.animator.SetBool("isDashing",true);
+            StartDash();
         }
+        
+
+        if (isDashing && Time.time >= dashEndTime) {
+            playerController.animator.SetBool("isDashing", false);
+            EndDash();
+        }
+    }
+
+    private void StartDash() {
+        isDashing = true;
+        dashEndTime = Time.time + dashDuration;
+        Vector3 dashDirection = playerController.moveDirection.normalized;
+        playerController.rb.AddForce(dashDirection * dashSpeed, ForceMode.Impulse);
+    }
+
+    private void EndDash() {
+        isDashing = false;
     }
 }

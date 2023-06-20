@@ -12,10 +12,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float maxReducingValue = .3f;
     [SerializeField] private float groundRaycastDistance = 0.5f;
     [SerializeField] private Transform playerChild;
-    protected Vector3 moveDirection = Vector3.zero;
+    public Vector3 moveDirection = Vector3.zero;
     private bool isOnGround = true;
     private bool hasJumped = false;
-    protected Rigidbody rb;
+    public Rigidbody rb;
    
 
     [Header("Jumping Section")]
@@ -23,10 +23,16 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float startFallingPosition = 1.0f;
     [SerializeField] private float fallingRate = 1.5f;
 
+    [Header("Combat Section")]
+    public Transform AttackPoint;
+    [SerializeField] private float attackRange = 0.5f;
+    [SerializeField] private int damage = 20;
+    public LayerMask enemyLayer;
+
     [Header("Animation Section")]
     public Animator animator;
-
-
+    private float lastRightClickTime = 0f;
+    private float doubleClickDelay = 0.5f;
 
 
 
@@ -42,9 +48,10 @@ public class PlayerController : MonoBehaviour {
         Inputs();
         Walking();
         Jump();
+        Attacking();
+        Attacking2();
+        Defending();
     }
-
-
 
     private void Inputs() {
         //Taking input through axis
@@ -79,6 +86,7 @@ public class PlayerController : MonoBehaviour {
         else {
             animator.SetBool("isWalking", moveDirection != Vector3.zero);
             animator.SetBool("isRunning", false);
+            animator.SetBool("isDashing", false);
 
             moveVelocity = moveDirection * moveSpeed;
         }
@@ -95,8 +103,14 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = Vector3.MoveTowards(rb.velocity, moveVelocity, 100 * Time.deltaTime);
 
     }
-
-    private void CheckGround() {
+    private void Attacking() {
+        if (Input.GetMouseButtonDown(0)) {
+            attackatPoint();
+            animator.SetTrigger("Attack");
+        }
+    }
+    
+   /* private void CheckGround() {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, groundRaycastDistance)) {
             if (hit.collider.CompareTag("ground")) {
@@ -108,7 +122,7 @@ public class PlayerController : MonoBehaviour {
             isOnGround = false;
         }
 
-    }
+    }*/
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("ground")) {
             isOnGround = true;
@@ -120,8 +134,6 @@ public class PlayerController : MonoBehaviour {
             isOnGround = false;
     }
 
-
-
     private void Jump() {
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !hasJumped  /*jumpCount < 2*/) {
@@ -131,11 +143,6 @@ public class PlayerController : MonoBehaviour {
             hasJumped = true;
 
         }
-
-
-
-
-
 
     }
 
@@ -147,7 +154,37 @@ public class PlayerController : MonoBehaviour {
                 rb.AddForce(Vector3.down * fallingRate, ForceMode.Force);
 
         }
+    }
+    private void Attacking2() {
+        if (Input.GetMouseButtonDown(0)) {
+            // Check for double right-click
+            
+            if (Time.time - lastRightClickTime <= doubleClickDelay) {
+                // Double right-click detected, trigger the animation
+                animator.SetTrigger("Attack2");
+                attackatPoint();
+            }
 
+            lastRightClickTime = Time.time;
+        }
+    }
 
+    private void Defending() {
+        if (Input.GetMouseButtonDown(1)) {
+            animator.SetTrigger("Defend");
+
+        }
+    }
+    private void attackatPoint() {
+        Collider[] hitEnemies = Physics.OverlapSphere(AttackPoint.position, attackRange, enemyLayer);
+
+        foreach(Collider enemy in hitEnemies) {
+            enemy.gameObject.GetComponent<EnemyHealthCombat>().TakeDamage(damage);
+            Debug.Log(enemy.name);
+        }
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.DrawWireSphere(AttackPoint.position, attackRange);
     }
 }
