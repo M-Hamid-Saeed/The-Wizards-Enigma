@@ -27,7 +27,7 @@ public class EnemyHealthCombat : MonoBehaviour
 
     public void TakeDamage(int damage) {
         Debug.Log("TAKING DAMAGE");
-
+        anim.SetTrigger("GetHit");
         currentHealth -= damage;
         healthUI.setHealth(currentHealth);
         if (currentHealth <= 0)
