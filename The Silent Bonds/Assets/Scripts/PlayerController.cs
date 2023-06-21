@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float groundRaycastDistance = 0.5f;
     [SerializeField] private Transform playerChild;
     public Vector3 moveDirection = Vector3.zero;
+    private Vector3 previousMoveDirection = Vector3.zero;
     private bool isOnGround = true;
     private bool hasJumped = false;
     public Rigidbody rb;
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Jumping Section")]
     [SerializeField] private float jumpForce = 2f;
-    [SerializeField] private float startFallingPosition = 1.0f;
+    [SerializeField] private float startFallingVelocity = 1.0f;
     [SerializeField] private float fallingRate = 1.5f;
 
     [Header("Combat Section")]
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private int damage = 20;
     public LayerMask enemyLayer;
+    private float startedAttacking;
 
     [Header("Animation Section")]
     public Animator animator;
@@ -35,12 +37,26 @@ public class PlayerController : MonoBehaviour {
     private float doubleClickDelay = 0.5f;
 
 
+    [Header("Dashing Particle Section")]
+    [SerializeField] private Transform particlesParent;
+    [SerializeField] private ParticleSystem jumpParticles;
+
+
+    [SerializeField] private TrailRenderer swordTrail;
+
+
 
     private void Awake() {
         //To make the cursor Invisible while playing
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        rb = GetComponent<Rigidbody>();   
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        particlesParent = transform.Find("Particles").Find("JumpParticles");
+        jumpParticles = particlesParent.GetComponent<ParticleSystem>();
     }
 
 
@@ -51,6 +67,7 @@ public class PlayerController : MonoBehaviour {
         Attacking();
         Attacking2();
         Defending();
+        ApplyDownForce();
     }
 
     private void Inputs() {
@@ -68,7 +85,17 @@ public class PlayerController : MonoBehaviour {
         cameraRight.y = 0f;
         cameraRight.Normalize();
 
-        moveDirection = cameraForward * verticalInput + cameraRight * horizontalInput;
+        
+        Vector3 newMoveDirection = cameraForward * verticalInput + cameraRight * horizontalInput;
+
+        // to maintain the previous move direction in case it is currently zero
+        if (newMoveDirection == Vector3.zero)
+        {
+            previousMoveDirection = moveDirection;
+        }
+
+        moveDirection = newMoveDirection;
+            
 
         // Rotate the player towards the movement direction
         if (moveDirection != Vector3.zero)
@@ -107,7 +134,13 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             attackatPoint();
             animator.SetTrigger("Attack");
+            swordTrail.enabled = true;
+            startedAttacking = Time.time;
         }
+
+        // this part makes sure that the trail is only rendered while attacking
+        if (swordTrail.enabled && Time.time > startedAttacking + 0.5)
+            swordTrail.enabled = false;
     }
     
    /* private void CheckGround() {
@@ -129,9 +162,14 @@ public class PlayerController : MonoBehaviour {
             hasJumped = false;
 
         }
-        else
+    }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("ground"))
+        {
             isOnGround = false;
+        }
     }
 
     private void Jump() {
@@ -139,21 +177,23 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !hasJumped  /*jumpCount < 2*/) {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             animator.SetTrigger("isJumping");
-            ApplyDownForce();
             hasJumped = true;
-
+            PlayJumpParticle();
         }
+        //ApplyDownForce();
 
     }
 
     private void ApplyDownForce() {
 
-        while (!isOnGround) {
             // Check if the player is above a certain height or velocity threshold
-            if (transform.position.y > startFallingPosition)
-                rb.AddForce(Vector3.down * fallingRate, ForceMode.Force);
+            if ((rb.velocity.y < startFallingVelocity) && !isOnGround)
+            {
+                Debug.Log("Applying Down Force");
+                rb.velocity += Physics.gravity * fallingRate * Time.deltaTime;
+            }
+                
 
-        }
     }
     private void Attacking2() {
         if (Input.GetMouseButtonDown(0)) {
@@ -163,9 +203,15 @@ public class PlayerController : MonoBehaviour {
                 // Double right-click detected, trigger the animation
                 animator.SetTrigger("Attack2");
                 attackatPoint();
+                swordTrail.enabled = true ;
+                startedAttacking = Time.time;
             }
 
             lastRightClickTime = Time.time;
+
+            // this part makes sure that the trail is only rendered while attacking
+            if (swordTrail.enabled && Time.time > startedAttacking + 0.5)
+                swordTrail.enabled = false;
         }
     }
 
@@ -186,5 +232,19 @@ public class PlayerController : MonoBehaviour {
 
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(AttackPoint.position, attackRange);
+    }
+
+    private void PlayJumpParticle()
+    {
+        particlesParent.forward = - playerChild.transform.forward;
+        particlesParent.Rotate(60, 0, 0);
+        jumpParticles.Play();
+    }
+
+    private void SetSwordTrail(bool status)
+    {
+        swordTrail.enabled = status;
+
+        
     }
 }
