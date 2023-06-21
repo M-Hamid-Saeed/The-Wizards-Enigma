@@ -34,6 +34,12 @@ public class EnemyHealthCombat : MonoBehaviour
             Die();
     }
     private void Die() {
-        anim.SetTrigger("Death");       
+        anim.SetTrigger("Death");
+        StartCoroutine(destroy());
+
+    }
+    IEnumerator destroy() {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 }

@@ -12,7 +12,7 @@ public class EnemyInteractAttack : MonoBehaviour {
     private Animator anim;
     private EnemyHealthCombat playerHealth;
     private bool canAttack = true;
-    private float attackDelay = 3f;
+    private float attackDelay = 2f;
     [SerializeField]private float nextAttackTime = 2f;
 
     private void Start() {
@@ -28,7 +28,7 @@ public class EnemyInteractAttack : MonoBehaviour {
             Attack();
 
             nextAttackTime = Time.time + attackDelay;
-            anim.SetBool("Run Forward", bearnavMesh.targetPlayer.GetComponent<Rigidbody>().velocity != Vector3.zero);
+           
         }
     }
 
