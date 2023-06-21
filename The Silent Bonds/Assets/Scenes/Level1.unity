@@ -2663,9 +2663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8439124c078b78468b782daea632e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 10
   attackDamage: 10
   attackCooldown: 2
+  attackRange: 10
   playerTransform: {fileID: 375184310}
   eagleAnimator: {fileID: 396238441}
   eagleVisual: {fileID: 396238440}
@@ -4661,7 +4661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1526554761915109350, guid: 076879464bd682945aa7cd31ae139a36, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2554720417436106229, guid: 076879464bd682945aa7cd31ae139a36, type: 3}
       propertyPath: m_RootOrder

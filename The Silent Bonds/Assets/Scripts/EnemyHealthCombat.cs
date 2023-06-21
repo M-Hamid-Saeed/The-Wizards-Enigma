@@ -27,13 +27,19 @@ public class EnemyHealthCombat : MonoBehaviour
 
     public void TakeDamage(int damage) {
         Debug.Log("TAKING DAMAGE");
-
+        anim.SetTrigger("GetHit");
         currentHealth -= damage;
         healthUI.setHealth(currentHealth);
         if (currentHealth <= 0)
             Die();
     }
     private void Die() {
-        anim.SetTrigger("Death");       
+        anim.SetTrigger("Death");
+        StartCoroutine(destroy());
+
+    }
+    IEnumerator destroy() {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 }
