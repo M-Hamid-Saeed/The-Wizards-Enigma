@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float maxReducingValue = .3f;
     [SerializeField] private float groundRaycastDistance = 0.5f;
     [SerializeField] private Transform playerChild;
+    [SerializeField] 
     public Vector3 moveDirection = Vector3.zero;
     private Vector3 previousMoveDirection = Vector3.zero;
     private bool isOnGround = true;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour {
 
 
     private void Update() {
+        CheckGround();
         Inputs();
         Walking();
         Jump();
@@ -142,35 +144,23 @@ public class PlayerController : MonoBehaviour {
         if (swordTrail.enabled && Time.time > startedAttacking + 0.5)
             swordTrail.enabled = false;
     }
-    
-   /* private void CheckGround() {
+
+    private void CheckGround() {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, groundRaycastDistance)) {
             if (hit.collider.CompareTag("ground")) {
                 isOnGround = true;
-                
+                hasJumped = false;
             }
         }
         else {
             isOnGround = false;
         }
 
-    }*/
-    private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag("ground")) {
-            isOnGround = true;
-            hasJumped = false;
-
-        }
     }
+  
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("ground"))
-        {
-            isOnGround = false;
-        }
-    }
+
 
     private void Jump() {
 
@@ -246,5 +236,21 @@ public class PlayerController : MonoBehaviour {
         swordTrail.enabled = status;
 
         
+    }
+    private void soundEffectsManage() {
+        if (Input.GetMouseButtonDown(0)) {
+            // Play attack sound effect
+            // Add code here to play attack sound effect
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !hasJumped) {
+            // Play jump sound effect
+            // Add code here to play jump sound effect
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+            // Play dash sound effect
+            // Add code here to play dash sound effect
+        }
     }
 }

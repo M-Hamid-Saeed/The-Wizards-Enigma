@@ -7,7 +7,6 @@ public class EagleController : MonoBehaviour {
     [Header("Eagle Movement Section")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeedVertical = 2f;
-    [SerializeField] private float maxRotationAngleHorizontal = 30f; // Adjust this value for the desired tilt angle
     [SerializeField] private float acceleration = 2f;
     [SerializeField] private float velocityReducingFactor = 1f;
     [SerializeField] private float maxReducingValue = .3f;
