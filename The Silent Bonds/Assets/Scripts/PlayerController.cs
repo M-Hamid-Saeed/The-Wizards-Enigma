@@ -47,9 +47,7 @@ public class PlayerController : MonoBehaviour {
 
 
     private void Awake() {
-        //To make the cursor Invisible while playing
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
         rb = GetComponent<Rigidbody>();
     }
 
