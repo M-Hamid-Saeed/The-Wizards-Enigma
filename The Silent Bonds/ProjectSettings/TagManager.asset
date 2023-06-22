@@ -6,6 +6,9 @@ TagManager:
   tags:
   - ground
   - Player Logic
+  - MouseLockManager
+  - LV2_UIManager
+  - LV2_TimerManager
   layers:
   - Default
   - TransparentFX
