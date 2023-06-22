@@ -10,14 +10,14 @@ public class EnemyInteractAttack : MonoBehaviour {
     [SerializeField] private Animator playerAnim;
     private NavmeshAgentBear bearnavMesh;
     private Animator anim;
-    private EnemyHealthCombat playerHealth;
+    public EnemyHealthCombat playerHealth;
     private bool canAttack = true;
     private float attackDelay = 2f;
     [SerializeField]private float nextAttackTime = 2f;
 
     private void Start() {
         anim = GetComponent<Animator>();
-        playerHealth = GameObject.FindGameObjectWithTag("Player Logic").GetComponent<EnemyHealthCombat>();
+        
         bearnavMesh = GetComponent<NavmeshAgentBear>();
     }
 
