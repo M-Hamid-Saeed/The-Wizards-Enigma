@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class EnemyHealthCombat : MonoBehaviour
 {
     [Header("\tEnemy Health\n")]
@@ -23,7 +23,8 @@ public class EnemyHealthCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isDead && gameObject.CompareTag("Player Logic"))
+            ReloadScene();
     }
 
     public void TakeDamage(int damage) {
@@ -42,7 +43,11 @@ public class EnemyHealthCombat : MonoBehaviour
 
     }
     IEnumerator destroy() {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
+    }
+
+    private void ReloadScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

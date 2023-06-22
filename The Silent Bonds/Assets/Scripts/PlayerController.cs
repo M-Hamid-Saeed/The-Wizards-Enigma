@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour {
             audioSource.PlayOneShot(AttackSound, 1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !hasJumped) {
             audioSource.PlayOneShot(jumpSound, 1f);
         }
 
