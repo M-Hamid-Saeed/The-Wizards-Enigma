@@ -12,6 +12,12 @@ public class LV2_Manager : MonoBehaviour
     void Start()
     {
         mouseLockManager.LockMouse();
+        timerManager.onTimerZero += TimerManager_onTimerZero;
+    }
+
+    private void TimerManager_onTimerZero(object sender, System.EventArgs e)
+    {
+        onLevelFailed();
     }
 
     // Update is called once per frame
@@ -26,5 +32,11 @@ public class LV2_Manager : MonoBehaviour
     {
         timerManager.PauseTimer();
         uiManager.OnLevelCompletion();
+    }
+
+    public void onLevelFailed()
+    {
+        timerManager.PauseTimer();
+        uiManager.OnLevelFailed();
     }
 }

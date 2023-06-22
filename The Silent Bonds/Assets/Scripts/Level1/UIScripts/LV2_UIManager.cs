@@ -12,6 +12,9 @@ public class LV2_UIManager : MonoBehaviour
     [SerializeField] private GameObject miniObjectiveContainer;
     [SerializeField] private GameObject checkMarkMiniObjective;
 
+    [SerializeField] private GameObject levelCompletedContainer;
+    [SerializeField] private GameObject levelFailedContainer;
+
     float animationTime = 3f;
 
 
@@ -92,9 +95,19 @@ public class LV2_UIManager : MonoBehaviour
 
     public void OnLevelCompletion()
     {
-        audioManager.Play("LevelCompleted");
-
+        // audioManager.Play("LevelCompleted");
         LeanTween.scale(checkMarkMiniObjective, new Vector3(1, 1, 1), 0.25f).setEaseOutBack();
+        audioManager.Play("Yoo");
+        audioManager.Play("Stamp");
+        levelCompletedContainer.SetActive(true);
+        LeanTween.scale(levelCompletedContainer, new Vector3(1, 1, 1), 0.5f).setEaseOutElastic();
+    }
+
+    public void OnLevelFailed()
+    {
+        audioManager.Play("Failed");
+        levelCompletedContainer.SetActive(true);
+        LeanTween.scale(levelFailedContainer, new Vector3(1, 1, 1), 0.5f).setEaseOutElastic();
     }
 
     IEnumerator CloseTitleOpenObjective(float seconds)

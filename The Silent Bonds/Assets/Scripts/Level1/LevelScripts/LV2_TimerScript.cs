@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,10 +14,22 @@ public class LV2_TimerScript : MonoBehaviour
     private bool shouldUpdateTimer = true;
 
 
+    // event
+    public event EventHandler onTimerZero;
+
+
+    private void Start()
+    {
+        //StartCoroutine(ResetTimerAfterDelay(7));
+    }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (timer == 0.0f)
+            onTimerZero?.Invoke(this, EventArgs.Empty);
+
         if (!shouldUpdateTimer) return;
 
         timer -= Time.deltaTime;
@@ -55,4 +68,12 @@ public class LV2_TimerScript : MonoBehaviour
 
         return string.Format("{00:00}:{1:00}", minutes, seconds);
     }
+
+
+    //IEnumerator ResetTimerAfterDelay(float seconds)
+    //{
+    //    yield return new WaitForSeconds(seconds);
+
+    //    timer = 0.0f;
+    //}
 }
