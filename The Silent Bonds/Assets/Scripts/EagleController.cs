@@ -69,7 +69,15 @@ public class EagleController : MonoBehaviour {
     }
 
     private void Walking() {
-        Vector3 moveVelocity = moveDirection * moveSpeed;
+        Vector3 moveVelocity;
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            moveVelocity = moveDirection * (moveSpeed * 2f);
+            animator.SetBool("isFlyingFast", true);
+        }
+        else {
+            animator.SetBool("isFlyingFast", false);
+            moveVelocity = moveDirection * moveSpeed;
+        }
 
         if (moveVelocity != Vector3.zero)
             velocityReducingFactor += acceleration * Time.deltaTime;
