@@ -5505,7 +5505,7 @@ MonoBehaviour:
   health: 100
   currentHealth: 0
   anim: {fileID: 7780876988568536683}
-  healthUI: {fileID: 1102061845}
+  healthUI: {fileID: 0}
   isDead: 0
 --- !u!1 &2242540082443704344
 GameObject:
@@ -20374,15 +20374,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1399491476850481372, guid: 7e691a0229efacd4cba2922df3888456, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.58
+      value: -0.042
       objectReference: {fileID: 0}
     - target: {fileID: 1399491476850481372, guid: 7e691a0229efacd4cba2922df3888456, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.62
+      value: -0.21
       objectReference: {fileID: 0}
     - target: {fileID: 1399491476850481372, guid: 7e691a0229efacd4cba2922df3888456, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.55
+      value: -0.13
       objectReference: {fileID: 0}
     - target: {fileID: 1399491476850481372, guid: 7e691a0229efacd4cba2922df3888456, type: 3}
       propertyPath: m_LocalRotation.w
