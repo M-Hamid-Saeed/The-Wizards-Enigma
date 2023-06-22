@@ -41,6 +41,12 @@ public class PlayerController : MonoBehaviour {
     [Header("Dashing Particle Section")]
     [SerializeField] private Transform particlesParent;
     [SerializeField] private ParticleSystem jumpParticles;
+    [Header("Player Sound Effects")]
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip DashSound;
+    [SerializeField] private AudioClip AttackSound;
+    [SerializeField] private AudioSource audioSource;
+    
 
 
     [SerializeField] private TrailRenderer swordTrail;
@@ -56,6 +62,7 @@ public class PlayerController : MonoBehaviour {
     {
         particlesParent = transform.Find("Particles").Find("JumpParticles");
         jumpParticles = particlesParent.GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -68,6 +75,7 @@ public class PlayerController : MonoBehaviour {
         Attacking2();
         Defending();
         ApplyDownForce();
+        soundEffectsManage();
     }
 
     private void Inputs() {
@@ -237,13 +245,11 @@ public class PlayerController : MonoBehaviour {
     }
     private void soundEffectsManage() {
         if (Input.GetMouseButtonDown(0)) {
-            // Play attack sound effect
-            // Add code here to play attack sound effect
+            audioSource.PlayOneShot(AttackSound, 1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !hasJumped) {
-            // Play jump sound effect
-            // Add code here to play jump sound effect
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            audioSource.PlayOneShot(jumpSound, 1f);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
@@ -252,3 +258,4 @@ public class PlayerController : MonoBehaviour {
         }
     }
 }
+ 

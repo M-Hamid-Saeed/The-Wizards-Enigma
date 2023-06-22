@@ -10,6 +10,7 @@ public class EnemyHealthCombat : MonoBehaviour
     [Header("\tAnimation Section\n")]
     [SerializeField] private Animator anim;
     public EnemyHealthUI healthUI;
+    public bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +31,10 @@ public class EnemyHealthCombat : MonoBehaviour
         anim.SetTrigger("GetHit");
         currentHealth -= damage;
         healthUI.setHealth(currentHealth);
-        if (currentHealth <= 0)
+        if (currentHealth <= 0) {
             Die();
+            isDead = true;
+        }
     }
     private void Die() {
         anim.SetTrigger("Death");
