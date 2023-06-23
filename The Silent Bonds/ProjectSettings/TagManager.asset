@@ -9,6 +9,7 @@ TagManager:
   - MouseLockManager
   - LV2_UIManager
   - LV2_TimerManager
+  - settingsButton
   layers:
   - Default
   - TransparentFX
