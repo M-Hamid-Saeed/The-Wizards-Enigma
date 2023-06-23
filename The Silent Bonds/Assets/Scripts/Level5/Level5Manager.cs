@@ -22,7 +22,7 @@ public class Level5Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (checkpoints <= 1 || playedOnce)
+        if (checkpoints < 12 || playedOnce)
             return;
 
 
