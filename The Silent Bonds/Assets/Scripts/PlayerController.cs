@@ -245,10 +245,10 @@ public class PlayerController : MonoBehaviour {
     }
     private void soundEffectsManage() {
         if (Input.GetMouseButtonDown(0)) {
-            audioSource.PlayOneShot(AttackSound, 1f);
+          //  audioSource.PlayOneShot(AttackSound, 1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !hasJumped) {
+        if (Input.GetKeyDown(KeyCode.Space) ) {
             audioSource.PlayOneShot(jumpSound, 1f);
         }
 
