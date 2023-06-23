@@ -10,6 +10,8 @@ TagManager:
   - LV2_UIManager
   - LV2_TimerManager
   - settingsButton
+  - LevelManager
+  - PlayerHUD
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,7 @@ public class AudioManager_LV2 : MonoBehaviour
 {
     public Sound[] sounds;
 
-    private void Start()
+    private void Awake()
     {
         foreach (Sound s in sounds)
         {
@@ -22,7 +22,7 @@ public class AudioManager_LV2 : MonoBehaviour
             s.source.playOnAwake = s.playOnAwake;
         }
 
-        Play("EaglesCry");
+        // Play("Suspense");
     }
 
 

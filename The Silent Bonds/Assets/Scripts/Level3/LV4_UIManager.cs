@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class LV2_UIManager : MonoBehaviour
+public class LV4_UIManager : MonoBehaviour
 {
-
     [SerializeField] private GameObject introTitle;
     [SerializeField] private GameObject objectiveContainer;
 
@@ -25,19 +23,19 @@ public class LV2_UIManager : MonoBehaviour
     void Start()
     {
         PlayIntroAnimation();
+        audioManager.Play("Bell");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
     void PlayIntroAnimation()
     {
         PlayTitleAnimation(true);
-        audioManager.Play("EaglesCry");
 
         StartCoroutine(CloseTitleOpenObjective(animationTime));
         // StartCoroutine(Test(animationTime * 5));
@@ -78,7 +76,7 @@ public class LV2_UIManager : MonoBehaviour
 
 
         LeanTween.moveLocalY(objectiveContainer, targetY, time).setEaseOutQuart();
-        
+
         // play audio here
     }
 
@@ -87,10 +85,10 @@ public class LV2_UIManager : MonoBehaviour
         float offScreenX = -1309;
         float targetX = -628;
 
-        if(!onScreen) targetX  = offScreenX;
+        if (!onScreen) targetX = offScreenX;
 
         Debug.Log("Display Mini Objective");
-        LeanTween.moveLocalX(miniObjectiveContainer, targetX, animationTime/2).setEaseOutQuart();
+        LeanTween.moveLocalX(miniObjectiveContainer, targetX, animationTime / 2).setEaseOutQuart();
 
     }
 
@@ -120,12 +118,4 @@ public class LV2_UIManager : MonoBehaviour
     }
 
     public bool AreAnimationsFinished() => animationsFinished;
-
-    //IEnumerator Test(float seconds)
-    //{
-    //    yield return new WaitForSeconds(seconds);
-
-    //    OnLevelCompletion();
-    //}
-
 }
