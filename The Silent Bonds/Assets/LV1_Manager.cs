@@ -9,6 +9,7 @@ public class LV1_Manager : MonoBehaviour
     [SerializeField] private GameObject thirdPersonCamera;
 
     [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private GameObject playerHUD;
 
     bool enteredScene;
 
@@ -27,6 +28,7 @@ public class LV1_Manager : MonoBehaviour
             mainMenuCanvas.SetActive(false);
             mainMenuCamera.SetActive(false);
             thirdPersonCamera.SetActive(true);
+            playerHUD.SetActive(true);
         }
     }
 }
