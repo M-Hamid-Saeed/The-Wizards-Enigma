@@ -37,7 +37,7 @@ public class PlayerHUDManager : MonoBehaviour, IPointerEnterHandler, IPointerExi
         pauseContainer = transform.Find("PauseContainer").gameObject;
         ring = transform.Find("IconRing").gameObject;
         controlPanel = transform.Find("ControlPanel").gameObject;
-        levelPanel = transform.Find("Levels").Find("LevelContainer").gameObject;
+        levelPanel = transform.Find("Levels").Find("LevelPanel").gameObject;
 
         //controlPanel.SetActive(false);
         //levelPanel.SetActive(false);

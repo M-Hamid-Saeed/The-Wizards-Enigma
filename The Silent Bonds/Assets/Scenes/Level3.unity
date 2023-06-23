@@ -2229,7 +2229,7 @@ MonoBehaviour:
   PortalBlue: {fileID: 1545052039}
   uiManager: {fileID: 244726791}
   miniObjectiveContainer: {fileID: 5998681567136414108}
-  dashAcquired: {fileID: 0}
+  dashAcquired: {fileID: 416811791}
 --- !u!65 &767904143
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13172,7 +13172,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260035593}
-  m_LocalRotation: {x: 0.17970765, y: 0.680767, z: -0.17795983, w: 0.6874531}
+  m_LocalRotation: {x: 0.17970766, y: 0.68076694, z: -0.1779598, w: 0.68745315}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14941,7 +14941,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945754647}
-  m_LocalRotation: {x: 0.14864856, y: -0.6826584, z: 0.14483233, w: 0.70064604}
+  m_LocalRotation: {x: 0.14864855, y: -0.68265843, z: 0.14483231, w: 0.700646}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
