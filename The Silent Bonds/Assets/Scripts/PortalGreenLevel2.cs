@@ -8,8 +8,7 @@ public class PortalGreenLevel2 : MonoBehaviour
     [SerializeField] private EnemyHealthCombat PlayerHealth;
     [SerializeField] private ParticleSystem portalGreen;
     [SerializeField] private GameObject portal;
-    [SerializeField] private GameObject levelComplete;
-    [SerializeField] private GameObject levelFailed;
+    [SerializeField] private LV2_UIManager level2Manager;
 
     // Start is called before the first frame update
     private void Start() {
@@ -22,11 +21,19 @@ public class PortalGreenLevel2 : MonoBehaviour
         if (eagleHealth.isDead) {
             portal.SetActive(true);
             portalGreen.Play();
-            levelComplete.SetActive(true);
+            level2Manager.OnLevelCompletion();
+            StartCoroutine(waitFortime());
+            level2Manager.levelCompletedContainer.SetActive(false);
+            
+          
         }
         else if (PlayerHealth.isDead) {
-            levelFailed.SetActive(true);
+            StartCoroutine(waitFortime());
+            level2Manager.OnLevelFailed();
         }
         
+    }
+    IEnumerator waitFortime() {
+        yield return new WaitForSeconds(3f);
     }
 }

@@ -2165,7 +2165,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266106807}
-  m_LocalRotation: {x: 0.28171676, y: 0.021599827, z: 0.011291943, w: 0.959188}
+  m_LocalRotation: {x: 0.28171676, y: 0.021599876, z: 0.011291928, w: 0.959188}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7016,7 +7016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerContainer: {fileID: 717809751}
   timerDisplayText: {fileID: 1876130801}
-  timer: 200
+  timer: 10
 --- !u!4 &1023375546
 Transform:
   m_ObjectHideFlags: 0
@@ -7892,7 +7892,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133486999}
-  m_LocalRotation: {x: 0.25001624, y: 0.021216782, z: 0.011996249, w: 0.9679349}
+  m_LocalRotation: {x: 0.25001624, y: 0.021216746, z: 0.011996258, w: 0.9679349}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8802,7 +8802,7 @@ MonoBehaviour:
   miniObjectiveContainer: {fileID: 1233666723}
   checkMarkMiniObjective: {fileID: 1288991356}
   levelCompletedContainer: {fileID: 482159874}
-  levelFailedContainer: {fileID: 0}
+  levelFailedContainer: {fileID: 1128621183}
   audioManager: {fileID: 1660831615}
 --- !u!1 &1255166025
 GameObject:
@@ -9439,7 +9439,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377042740}
-  m_LocalRotation: {x: 0.21832062, y: 0.020814324, z: 0.0126817105, w: 0.97557265}
+  m_LocalRotation: {x: 0.21832064, y: 0.020814287, z: 0.012681719, w: 0.97557265}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13654,7 +13654,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018271272}
-  m_LocalRotation: {x: 0.2503396, y: 0.016981238, z: -0.0043916106, w: 0.9679992}
+  m_LocalRotation: {x: 0.2503396, y: 0.016981171, z: -0.0043915934, w: 0.9679992}
   m_LocalPosition: {x: -0.17830883, y: 11.585598, z: 0.82312584}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14969,7 +14969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3585166208110246813, guid: e2a8756647b68e046ad295091b0b5e7c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 350
+      value: 409
       objectReference: {fileID: 0}
     - target: {fileID: 3585166208110246813, guid: e2a8756647b68e046ad295091b0b5e7c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
