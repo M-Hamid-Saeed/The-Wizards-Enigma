@@ -11,6 +11,7 @@ public class DashActive : MonoBehaviour
     [SerializeField] private ParticleSystem dashParticle;
     [SerializeField] private ParticleSystem stoppingParticle;
     [SerializeField] private ParticleSystem PortalBlue;
+    [SerializeField] private GameObject portalGameObject;
 
     [SerializeField] private LV3_UIManager uiManager;
     [SerializeField] private GameObject miniObjectiveContainer;
@@ -22,6 +23,7 @@ public class DashActive : MonoBehaviour
     void Start()
     {
         playerDash.enabled = false;
+        portalGameObject.SetActive(false);
     }
 
     
@@ -31,6 +33,7 @@ public class DashActive : MonoBehaviour
             playerDash.enabled = true;
             dashParticle.Play();
         PortalBlue.Play();
+        portalGameObject.SetActive(true);
             Destroy(gameObject);
         uiManager.DisplayMiniObjective(false);
         DisplayPortalPrompt(true);

@@ -248,13 +248,13 @@ public class PlayerController : MonoBehaviour {
           //  audioSource.PlayOneShot(AttackSound, 1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) ) {
+        if (Input.GetKeyDown(KeyCode.Space)) {
             audioSource.PlayOneShot(jumpSound, 1f);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             // Play dash sound effect
-            // Add code here to play dash sound effect
+         
         }
     }
 }
