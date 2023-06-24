@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1024319088}
-  m_IndirectSpecularColor: {r: 0.21116225, g: 0.05815723, b: 0.0360094, a: 1}
+  m_IndirectSpecularColor: {r: 0.21112557, g: 0.058144398, b: 0.036002178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7016,7 +7016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerContainer: {fileID: 717809751}
   timerDisplayText: {fileID: 1876130801}
-  timer: 10
+  timer: 200
 --- !u!4 &1023375546
 Transform:
   m_ObjectHideFlags: 0
@@ -8803,6 +8803,8 @@ MonoBehaviour:
   checkMarkMiniObjective: {fileID: 1288991356}
   levelCompletedContainer: {fileID: 482159874}
   levelFailedContainer: {fileID: 1128621183}
+  animationTime: 3
+  onScreenTime: 3
   audioManager: {fileID: 1660831615}
 --- !u!1 &1255166025
 GameObject:
@@ -9439,7 +9441,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377042740}
-  m_LocalRotation: {x: 0.21832064, y: 0.020814287, z: 0.012681719, w: 0.97557265}
+  m_LocalRotation: {x: 0.21832062, y: 0.020814324, z: 0.0126817105, w: 0.97557265}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10998,8 +11000,7 @@ MonoBehaviour:
   PlayerHealth: {fileID: 1943981089}
   portalGreen: {fileID: 1968823839}
   portal: {fileID: 1968823838}
-  levelComplete: {fileID: 482159874}
-  levelFailed: {fileID: 1128621183}
+  level2Manager: {fileID: 1252227750}
 --- !u!4 &1621437177
 Transform:
   m_ObjectHideFlags: 0
