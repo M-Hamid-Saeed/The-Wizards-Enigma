@@ -13,6 +13,7 @@ public class PlayerHUDManager : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [SerializeField] private GameObject controlsContainer;
     [SerializeField] private GameObject soundContainer;
     [SerializeField] private GameObject pauseContainer;
+    [SerializeField] private Animator sceneSwitchAnimator;
     private GameObject ring;
     private GameObject controlPanel;
     private GameObject levelPanel;
@@ -38,6 +39,7 @@ public class PlayerHUDManager : MonoBehaviour, IPointerEnterHandler, IPointerExi
         ring = transform.Find("IconRing").gameObject;
         controlPanel = transform.Find("ControlPanel").gameObject;
         levelPanel = transform.Find("Levels").Find("LevelPanel").gameObject;
+        sceneSwitchAnimator = GameObject.Find("LevelLoaderScreen").GetComponentInChildren<Animator>();
 
         //controlPanel.SetActive(false);
         //levelPanel.SetActive(false);
@@ -137,7 +139,20 @@ public class PlayerHUDManager : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void LoadScene(int number)
     {
         PlayLevelPanelAnimation(false);
-        SceneManager.LoadSceneAsync("Level" + number);
+        StartCoroutine(LoadLevelAsync(number));
+       
     }
+    private IEnumerator LoadLevelAsync(int number) {
+        // Trigger the scene switch animation
+        sceneSwitchAnimator.SetTrigger("switch");
+        
+        // Wait for a short delay to allow the animation to play
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadSceneAsync("Level" + number);
 
+
+
+    }
 }
+
+

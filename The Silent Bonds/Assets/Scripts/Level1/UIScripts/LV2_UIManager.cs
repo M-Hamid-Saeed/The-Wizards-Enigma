@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,18 +12,14 @@ public class LV2_UIManager : MonoBehaviour
     [SerializeField] private GameObject miniObjectiveContainer;
     [SerializeField] private GameObject checkMarkMiniObjective;
 
-    [SerializeField] private GameObject levelCompletedContainer;
-    [SerializeField] private GameObject levelFailedContainer;
+    public GameObject levelCompletedContainer;
+    public GameObject levelFailedContainer;
 
-    [SerializeField] float animationTime = 3f;
-    [SerializeField] float onScreenTime = 3f;
+    float animationTime = 3f;
 
 
     [SerializeField] private AudioManager_LV2 audioManager;
     private bool animationsFinished = false;
-
-
-    public event EventHandler onAnimationsFinished;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +67,7 @@ public class LV2_UIManager : MonoBehaviour
             targetY = offScreenY;
             DisplayMiniObjective(true);
             time /= 2;
-            onAnimationsFinished?.Invoke(this, EventArgs.Empty);
+            animationsFinished = true;
         }
         else
         {
@@ -99,8 +94,7 @@ public class LV2_UIManager : MonoBehaviour
 
     }
 
-    public void OnLevelCompletion()
-    {
+    public void OnLevelCompletion() {
         // audioManager.Play("LevelCompleted");
         Debug.Log("Entered UI Level Complete Function");
         LeanTween.scale(checkMarkMiniObjective, new Vector3(1, 1, 1), 0.25f).setEaseOutBack();
@@ -112,15 +106,14 @@ public class LV2_UIManager : MonoBehaviour
         Debug.Log("GameObject is active");
         LeanTween.scale(levelCompletedContainer, new Vector3(1, 1, 1), 0.5f).setEaseOutElastic();
         Debug.Log("Played main animation and exiting the function");
-        StartCoroutine(HideGameObject(onScreenTime, levelCompletedContainer));
     }
+
 
     public void OnLevelFailed()
     {
         audioManager.Play("Failed");
-        levelFailedContainer.SetActive(true);
+        levelCompletedContainer.SetActive(true);
         LeanTween.scale(levelFailedContainer, new Vector3(1, 1, 1), 0.5f).setEaseOutElastic();
-        StartCoroutine(HideGameObject(onScreenTime, levelFailedContainer));
     }
 
     IEnumerator CloseTitleOpenObjective(float seconds)
@@ -139,11 +132,5 @@ public class LV2_UIManager : MonoBehaviour
 
     //    OnLevelCompletion();
     //}
-
-    IEnumerator HideGameObject(float delay, GameObject gameObject)
-    {
-        yield return new WaitForSeconds(delay);
-        gameObject.SetActive(false);
-    }
 
 }

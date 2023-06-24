@@ -60,6 +60,7 @@ sysinfo.txt
 *.aab
 #*.unitypackage
 *.app
+The Silent Bonds/connectwebgl.zip
 
 # Crashlytics generated file
 crashlytics-build.properties
