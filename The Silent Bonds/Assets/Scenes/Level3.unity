@@ -515,6 +515,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHUDCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5073925161862978271, guid: 56bcc5d07c348b242beaba2dcef095d6, type: 3}
+      propertyPath: sceneSwitchAnimator
+      value: 
+      objectReference: {fileID: 2134136154}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56bcc5d07c348b242beaba2dcef095d6, type: 3}
 --- !u!1 &118672561
@@ -1377,7 +1381,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 674d72efac0b4824d9464bbcba18a5eb, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.35
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1473,7 +1477,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b54d0f8dca385814da8e85ac67014436, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.33
+  m_Volume: 0.41
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1753,7 +1757,7 @@ MonoBehaviour:
   dashParticle: {fileID: 770585686}
   stoppingParticle: {fileID: 1311031639}
   PortalBlue: {fileID: 1059312434}
-  portalGameObject: {fileID: 0}
+  portalGameObject: {fileID: 1059312435}
   uiManager: {fileID: 244726791}
   miniObjectiveContainer: {fileID: 5998681567136414108}
   dashAcquired: {fileID: 416811791}
@@ -6945,7 +6949,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.27
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7213,7 +7217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e37fa0def21ef84bacfd36bf3d5c43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: Level3
+  LevelName: Level4
   sceneSwitchAnimator: {fileID: 2134136154}
 --- !u!135 &1059312437
 SphereCollider:
@@ -12429,7 +12433,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260035593}
-  m_LocalRotation: {x: 0.17970766, y: 0.68076694, z: -0.1779598, w: 0.68745315}
+  m_LocalRotation: {x: 0.17970765, y: 0.680767, z: -0.17795983, w: 0.6874531}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16268,35 +16272,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3789882007014123596, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.700646
+      value: 0.70064604
       objectReference: {fileID: 0}
     - target: {fileID: 3789882007014123596, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14864855
+      value: 0.14864856
       objectReference: {fileID: 0}
     - target: {fileID: 3789882007014123596, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.68265843
+      value: -0.6826584
       objectReference: {fileID: 0}
     - target: {fileID: 3789882007014123596, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.14483231
+      value: 0.14483233
       objectReference: {fileID: 0}
     - target: {fileID: 3789882008258990604, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70634717
+      value: 0.7063472
       objectReference: {fileID: 0}
     - target: {fileID: 3789882008258990604, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.11863773
+      value: 0.11863774
       objectReference: {fileID: 0}
     - target: {fileID: 3789882008258990604, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.68821317
+      value: -0.6882131
       objectReference: {fileID: 0}
     - target: {fileID: 3789882008258990604, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.11559196
+      value: 0.11559194
       objectReference: {fileID: 0}
     - target: {fileID: 3789882008607110881, guid: 78b41c2efd486b94d8bc109da596e9eb, type: 3}
       propertyPath: m_RootOrder
