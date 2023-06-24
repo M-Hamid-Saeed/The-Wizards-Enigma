@@ -32,7 +32,7 @@ public class AudioManager_LV2 : MonoBehaviour
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        if (s == null || s.source == null)
         {
             Debug.LogWarning("Sound not found");
             return;

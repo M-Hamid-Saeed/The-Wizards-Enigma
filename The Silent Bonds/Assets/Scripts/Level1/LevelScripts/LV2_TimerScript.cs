@@ -10,8 +10,10 @@ public class LV2_TimerScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerDisplayText;
 
     // variables
-    public float timer = 0.0f;
+    public float timer = 20;
     private bool shouldUpdateTimer = true;
+
+    bool levelFailed = false;
 
 
     // event
@@ -27,8 +29,15 @@ public class LV2_TimerScript : MonoBehaviour
     void Update()
     {
 
-        if (timer == 0.0f)
+        if (timer < 1 && !levelFailed)
+        {
+            Debug.Log("Timer reached zero!");
             onTimerZero?.Invoke(this, EventArgs.Empty);
+            levelFailed = true;
+            shouldUpdateTimer = false;
+            return;
+        }
+            
 
         if (!shouldUpdateTimer) return;
 

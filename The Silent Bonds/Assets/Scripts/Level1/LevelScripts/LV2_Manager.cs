@@ -13,6 +13,12 @@ public class LV2_Manager : MonoBehaviour
     {
         mouseLockManager.LockMouse();
         timerManager.onTimerZero += TimerManager_onTimerZero;
+        uiManager.onAnimationsFinished += UiManager_onAnimationsFinished;
+    }
+
+    private void UiManager_onAnimationsFinished(object sender, System.EventArgs e)
+    {
+        timerManager.StartTimer();
     }
 
     private void TimerManager_onTimerZero(object sender, System.EventArgs e)
@@ -23,8 +29,7 @@ public class LV2_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (uiManager.AreAnimationsFinished())
-            timerManager.StartTimer();
+
     }
 
 
