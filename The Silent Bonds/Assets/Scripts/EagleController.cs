@@ -33,6 +33,11 @@ public class EagleController : MonoBehaviour {
     private void Update() {
         Inputs();
         Walking();
+        if (Input.GetKey(KeyCode.Space))
+        {
+           
+        }
+        
         if (Input.GetKeyDown(KeyCode.Space)) {
             animator.SetTrigger("Leave");
         }
@@ -46,7 +51,7 @@ public class EagleController : MonoBehaviour {
 
         //Getting main camera transform, to use it for getting camera forward direction
         //This will then be used to rotate the player towards the camera face, Making the forward of the player= forward of camera
-        Vector3 cameraForward = Camera.main.transform.forward;
+        /*Vector3 cameraForward = Camera.main.transform.forward;
         //cameraForward.y = 0f;
         cameraForward.Normalize();    // Normalizing to make it unit vector
 
@@ -55,13 +60,15 @@ public class EagleController : MonoBehaviour {
         cameraRight.Normalize();
 
         Vector3 cameraUP = Camera.main.transform.up;
-        cameraUP.Normalize();
+        cameraUP.Normalize();*/
 
-        moveDirection = cameraForward * verticalInput + cameraRight * horizontalInput;
+        //moveDirection = new Vector3(horizontalInput, 0, 0);
+        transform.Rotate(verticalInput * rotationSpeedVertical,0f,0f) ;
         // Rotate the player towards the movement direction
         if (moveDirection != Vector3.zero) {
             
-            EagleChild.forward = Vector3.Slerp(EagleChild.forward, moveDirection, Time.deltaTime * rotationSpeedVertical);
+           // EagleChild.forward = Vector3.Slerp(EagleChild.forward, moveDirection, Time.deltaTime * rotationSpeedVertical);
+          //  EagleChild.forward = Vector3.Slerp(EagleChild.forward, new Vector3(0,horizontalInput*rotationSpeedVertical,0), Time.deltaTime * rotationSpeedVertical);
         }
 
 
@@ -69,6 +76,7 @@ public class EagleController : MonoBehaviour {
 
     private void Walking() {
         Vector3 moveVelocity;
+        moveDirection = transform.forward;
         if (Input.GetKey(KeyCode.LeftShift)) {
             moveVelocity = moveDirection * (moveSpeed * 2f);
             animator.SetBool("isFlyingFast", true);
@@ -86,7 +94,8 @@ public class EagleController : MonoBehaviour {
         velocityReducingFactor = Mathf.Clamp(velocityReducingFactor, maxReducingValue, 1);
         moveVelocity *= velocityReducingFactor;
         moveVelocity.y = Mathf.Clamp(moveVelocity.y, minHeight, maxHeight);
-        rb.velocity = Vector3.MoveTowards(rb.velocity, moveVelocity, 50 * Time.deltaTime);
+        rb.velocity = Vector3.MoveTowards(rb.velocity, moveVelocity, 10 * Time.deltaTime);
+
         animator.SetBool("isFlying", moveDirection != Vector3.zero);
     }
 }
